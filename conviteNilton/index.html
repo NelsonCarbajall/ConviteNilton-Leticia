@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chá de Casa Nova - Nilton & Lericia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #e6fffa 100%);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.2), rgba(20, 184, 166, 0.2));
+            z-index: 1;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 4xl;
+            padding: 0 1.5rem;
+            animation: heroFadeIn 1s ease-out;
+        }
+        
+        .hero-icon {
+            width: 4rem;
+            height: 4rem;
+            color: #0d9488;
+            margin: 0 auto 1rem;
+            animation: heroScale 0.8s ease-out 0.3s both;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: heroCardScale 0.8s ease-out 0.6s both;
+        }
+        
+        .hero h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+        
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .badge {
+            background: #f1f5f9;
+            color: #374151;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 4rem 1.5rem;
+        }
+        
+        .section-container {
+            max-width: 6xl;
+            margin: 0 auto;
+        }
+        
+        .section-bg {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        
+        /* Address Card */
+        .address-header {
+            background: linear-gradient(90deg, #2563eb, #0d9488);
+            color: white;
+            padding: 1.5rem;
+        }
+        
+        .address-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .address-header p {
+            color: #bfdbfe;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 16rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background: #f3f4f6;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        /* Event Info */
+        .event-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        
+        .info-highlight {
+            background: #dbeafe;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            color: #1e293b;
+        }
+        
+        /* Gift Section */
+        .gift-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .gift-icon {
+            width: 3rem;
+            height: 3rem;
+            color: #0d9488;
+            margin: 0 auto 1rem;
+        }
+        
+        .gift-intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .gift-intro p {
+            font-size: 1.25rem;
+            color: #6b7280;
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+        
+        /* Tabs */
+        .tabs {
+            width: 100%;
+        }
+        
+        .tab-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.25rem;
+            margin-bottom: 2rem;
+            background: #f1f5f9;
+            padding: 0.25rem;
+            border-radius: 0.5rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .tab-list {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+        
+        .tab-trigger {
+            background: none;
+            border: none;
+            padding: 0.75rem 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        
+        .tab-trigger.active {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #475569;
+        }
+        
+        .gift-item {
+            background: linear-gradient(90deg, #dbeafe, #ccfbf1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #bfdbfe;
+            color: #374151;
+            animation: slideInLeft 0.4s ease-out;
+        }
+        
+        /* Store Links */
+        .store-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .store-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #475569;
+        }
+        
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .store-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            height: 4rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .store-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        
+        .store-btn.red { background: #ef4444; }
+        .store-btn.yellow { background: #eab308; }
+        .store-btn.blue { background: #3b82f6; }
+        .store-btn.green { background: #22c55e; }
+        
+        /* RSVP Section */
+        .rsvp-section {
+            background: linear-gradient(90deg, #dbeafe, #ccfbf1);
+        }
+        
+        .rsvp-container {
+            max-width: 32rem;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .rsvp-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rsvp-icon {
+            width: 3rem;
+            height: 3rem;
+            color: #0d9488;
+            margin: 0 auto 1rem;
+        }
+        
+        .rsvp-card h2 {
+            font-size: 1.875rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .rsvp-card p {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .input-container {
+            position: relative;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            height: 3rem;
+            padding-left: 2.5rem;
+            padding-right: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #0d9488;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+        
+        .whatsapp-btn {
+            width: 100%;
+            height: 3rem;
+            background: linear-gradient(90deg, #0d9488, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .whatsapp-btn:hover {
+            background: linear-gradient(90deg, #0f766e, #1d4ed8);
+            transform: scale(1.02);
+        }
+        
+        .form-note {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(90deg, #475569, #1e40af);
+            color: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 4xl;
+            margin: 0 auto;
+        }
+        
+        .footer-icon {
+            width: 2rem;
+            height: 2rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .footer h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer p {
+            color: #bfdbfe;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .footer-badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+        
+        /* Animations */
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes heroScale {
+            from { opacity: 0; transform: scale(0); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes heroCardScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .store-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tab-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <img src="https://images.unsplash.com/photo-1755624222023-621f7718950b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcGFydG1lbnQlMjBob21lJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzU3NTA2Mjg5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="Apartamento moderno" class="hero-bg">
+            
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                </div>
+                
+                <h1>Chá de Casa Nova</h1>
+                
+                <div class="hero-card">
+                    <h2>Nilton & Letícia</h2>
+                    <p>Venham celebrar conosco o início desta nova jornada em nosso lar! 🏠✨</p>
+                    <div class="badges">
+                        <div class="badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                            </svg>
+                            15 de Dezembro, 2024
+                        </div>
+                        <div class="badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
+                            </svg>
+                            15:00h
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Details -->
+        <section class="section">
+            <div class="section-container">
+                <div class="grid grid-2 animate-on-scroll">
+                    <div class="card">
+                        <div class="address-header">
+                            <h3>
+                                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                </svg>
+                                Nosso Endereço
+                            </h3>
+                            <p>
+                                Rua das Flores, 123<br>
+                                Bairro Jardim Primavera<br>
+                                Manaus - AM, 69000-000
+                            </p>
+                        </div>
+                        <div class="card-content">
+                            <div class="map-container">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.076651064989!2d-60.025753284476075!3d-3.119027097696853!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x926c1bc8b3a3fb27%3A0x5c67f97c6ce9c0f0!2sManaus%2C%20AM!5e0!3m2!1sen!2sbr!4v1642687654321!5m2!1sen!2sbr"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    title="Localização do evento">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content event-info">
+                            <h3>
+                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                </svg>
+                                Informações do Evento
+                            </h3>
+                            <div class="info-item">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                                </svg>
+                                <span>Domingo, 15 de Dezembro de 2024</span>
+                            </div>
+                            <div class="info-item">
+                                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
+                                </svg>
+                                <span>Das 15:00h às 19:00h</span>
+                            </div>
+                            <div class="info-highlight">
+                                <p>
+                                    <strong>Dress Code:</strong> Casual elegante<br>
+                                    <strong>Haverá:</strong> Lanche, música e muita alegria!<br>
+                                    <strong>RSVP:</strong> Até 10 de dezembro
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gift List Section -->
+        <section class="section section-bg">
+            <div class="section-container">
+                <div class="gift-intro">
+                    <div class="gift-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                        </svg>
+                    </div>
+                    <h2>Lista de Presentes</h2>
+                    <p>
+                        Para tornar nosso novo lar ainda mais especial, criamos uma lista com sugestões de presentes. 
+                        Sua presença já é o maior presente, mas se quiser nos mimar... 😊
+                    </p>
+                </div>
+
+                <div class="tabs animate-on-scroll">
+                    <div class="tab-list">
+                        <button class="tab-trigger active" data-tab="sala">🛋️</button>
+                        <button class="tab-trigger" data-tab="cozinha">🍽️</button>
+                        <button class="tab-trigger" data-tab="cafe">☕</button>
+                      
+                        <button class="tab-trigger" data-tab="quarto">🛏️</button>
+                        <button class="tab-trigger" data-tab="eletronicos">🔌</button>
+                    </div>
+
+                    <div class="tab-content active" id="sala">
+                        <div class="card">
+                            <div class="card-content">
+                                <h3 class="category-title">🛋️ Sala e Decoração</h3>
+                                <div class="grid grid-3">
+                                    <div class="gift-item">Almofadas decorativas</div>
+                                    <div class="gift-item">Mantas para sofá</div>
+                                    <div class="gift-item">Espelho</div>
+                                    <div class="gift-item">Porta-retratos</div>
+                                    <div class="gift-item">Vasos ou cachepôs</div>
+                                    <div class="gift-item">Quadros ou placas decorativas</div>
+                                    <div class="gift-item">Velas aromáticas</div>
+                                    <div class="gift-item">Tapete</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="cozinha">
+                        <div class="card">
+                            <div class="card-content">
+                                <h3 class="category-title">🍽️ Cozinha</h3>
+                                <div class="grid grid-3">
+                                    <div class="gift-item">Jogo de talheres</div>
+                                    <div class="gift-item">Jogo de facas</div>
+                                    <div class="gift-item">Conjunto de pratos ou copos</div>
+                                    <div class="gift-item">Panela antiaderente</div>
+                                    <div class="gift-item">Jogo de potes herméticos</div>
+                                    <div class="gift-item">Jogo de panelas</div>
+                                    <div class="gift-item">Abridor de garrafa ou vinho</div>
+                                    <div class="gift-item">Tábua de corte</div>
+                                    <div class="gift-item">Escorredor de louça</div>
+                                    <div class="gift-item">Fogão eletrico</div>
+                                    
+                                    <div class="gift-item">Formas para bolo ou assadeira</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="cafe">
+                        <div class="card">
+                            <div class="card-content">
+                                <h3 class="category-title">☕ Café da Manhã</h3>
+                                <div class="grid grid-3">
+                                    <div class="gift-item">Cafeteira elétrica ou prensa francesa</div>
+                                    <div class="gift-item">Torradeira</div>
+                                    <div class="gift-item">Jogo de xícaras ou canecas</div>
+                                    
+                                    <div class="gift-item">Garrafa térmica</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="tab-content" id="quarto">
+                        <div class="card">
+                            <div class="card-content">
+                                <h3 class="category-title">🛏️ Quarto e Banho</h3>
+                                <div class="grid grid-3">
+                                    <div class="gift-item">Jogo de cama (lençol, fronhas)</div>
+                                    <div class="gift-item">Jogo de toalhas</div>
+                                    <div class="gift-item">Organizador de gavetas</div>
+                                    <div class="gift-item">Cabides</div>
+                                    <div class="gift-item">Cortina para janela ou box</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="eletronicos">
+                        <div class="card">
+                            <div class="card-content">
+                                <h3 class="category-title">🔌 Eletrônicos</h3>
+                                <div class="grid grid-3">
+                                    <div class="gift-item">Extensão elétrica</div>
+                                    <div class="gift-item">Luminária de mesa ou abajur</div>
+                                    <div class="gift-item">Relógio de parede</div>
+                                    <div class="gift-item">Ferro de passar</div>
+                                    <div class="gift-item">Ventilador</div>
+                                    <div class="gift-item">Microondas</div>
+                                    <div class="gift-item">Alexa</div>
+                                    <div class="gift-item">Leds</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Store Links -->
+                <div class="store-section animate-on-scroll">
+                    <h3>🛒 Onde Encontrar os Presentes</h3>
+                    <div class="store-grid">
+                        <a href="https://www.americanas.com.br" target="_blank" class="store-btn red">
+                            Americanas
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.casasbahia.com.br" target="_blank" class="store-btn yellow">
+                            Casas Bahia
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.magazineluiza.com.br" target="_blank" class="store-btn blue">
+                            Magazine Luiza
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.bemol.com.br" target="_blank" class="store-btn green">
+                            Bemol
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP Section -->
+        <section class="section rsvp-section">
+            <div class="rsvp-container">
+                <div class="rsvp-card animate-on-scroll">
+                    <div class="rsvp-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <h2>Confirme sua Presença</h2>
+                    <p>Nos ajude a organizar melhor o evento! Digite seu nome e confirme pelo WhatsApp.</p>
+                    
+                    <div class="form-group">
+                        <div class="input-container">
+                            <svg class="input-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                            <input 
+                                type="text" 
+                                id="guestName" 
+                                class="form-input" 
+                                placeholder="Digite seu nome completo"
+                            >
+                        </div>
+                    </div>
+                    
+                    <button class="whatsapp-btn" onclick="handleRSVP()">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                        Confirmar pelo WhatsApp
+                    </button>
+                    
+                    <p class="form-note">
+                        Ao clicar, você será direcionado para nosso WhatsApp com uma mensagem pré-preenchida
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content animate-on-scroll">
+                <div class="footer-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                </div>
+                <h3>Com carinho, Nilton & Lericia</h3>
+                <p>
+                    Mal podemos esperar para recebê-los em nosso novo lar!<br>
+                    Para tirar dúvidas ou mais informações: (92) 99999-9999
+                </p>
+                <div class="footer-badges">
+                    <div class="footer-badge">📱 WhatsApp: (92) 99999-9999</div>
+                    <div class="footer-badge">📧 nilton.lericia@email.com</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabTriggers = document.querySelectorAll('.tab-trigger');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabTriggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const tabId = trigger.getAttribute('data-tab');
+                
+                // Remove active class from all triggers and contents
+                tabTriggers.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked trigger and corresponding content
+                trigger.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // RSVP functionality
+        function handleRSVP() {
+            const guestName = document.getElementById('guestName').value.trim();
+            
+            if (!guestName) {
+                alert('Por favor, digite seu nome para confirmar presença!');
+                return;
+            }
+            
+            const message = `Olá! Eu gostaria de confirmar minha presença no chá de casa nova do Nilton e Lericia.%0A%0ANome: ${encodeURIComponent(guestName)}%0A%0AObrigado!`;
+            const whatsappUrl = `https://wa.me/5592999999999?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Handle Enter key in input
+        document.getElementById('guestName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleRSVP();
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animate-on-scroll class
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add staggered animation to gift items
+        document.querySelectorAll('.gift-item').forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Smooth scrolling for any anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
